@@ -1,0 +1,6 @@
+{
+  "name": "Remix: Proactive AI Interface 2",
+  "description": "A minimalist interface that generates proactive suggestions based on text or image input, learning from user choices via a feedback log and embeddings.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
