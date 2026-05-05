@@ -387,7 +387,7 @@ function MainView({ logs, setLogs, rules }: { logs: LogEntry[], setLogs: React.D
               {/* Input Box */}
               <motion.div 
                 layout
-                className={`relative bg-white border border-neutral-200 overflow-hidden flex flex-col transition-all duration-500 focus-within:border-neutral-300 focus-within:shadow-md flex-shrink-0 shadow-sm ${
+                className={`relative bg-white border border-neutral-200 overflow-hidden flex flex-col transition-all duration-500 focus-within:border-neutral-300 focus-within:shadow-[0_8px_40px_rgba(0,0,0,0.08)] flex-shrink-0 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] ${
                   isIdle ? 'w-full max-w-[500px] min-h-[300px] md:h-[500px] rounded-[32px] md:rounded-[40px]' : 'w-full max-w-[350px] min-h-[250px] md:h-[350px] rounded-[24px] md:rounded-[32px]'
                 }`}
               onDragOver={handleDragOver}
@@ -484,10 +484,10 @@ function MainView({ logs, setLogs, rules }: { logs: LogEntry[], setLogs: React.D
                             transition={{ delay: idx * 0.1, type: "spring", stiffness: 300, damping: 30 }}
                             onClick={() => handleActionSelect(suggestion, false)}
                             disabled={appState === 'executing' || appState === 'result'}
-                            className={`text-left px-[15px] py-[10px] rounded-3xl transition-all max-w-full disabled:cursor-default ${
+                            className={`text-left px-[15px] py-[10px] rounded-3xl transition-all max-w-full disabled:cursor-default border border-transparent ${
                               isSelected 
-                                ? 'bg-blue-600 text-white' 
-                                : 'bg-blue-500 text-white hover:bg-blue-600'
+                                ? 'bg-neutral-900 text-white border-neutral-900 shadow-md' 
+                                : 'bg-white text-neutral-700 border-neutral-200 hover:border-neutral-300 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]'
                             }`}
                           >
                             {suggestion}
@@ -504,8 +504,8 @@ function MainView({ logs, setLogs, rules }: { logs: LogEntry[], setLogs: React.D
                           className="flex items-center w-full mt-1"
                         >
                           {showCustomInput || (selectedAction && customAction === selectedAction) ? (
-                            <div className={`flex items-center gap-2 rounded-3xl px-4 py-2 w-full max-w-md ${
-                              selectedAction ? 'bg-blue-600 text-white' : 'bg-neutral-200 text-neutral-800'
+                            <div className={`flex items-center gap-2 rounded-3xl px-4 py-2 w-full max-w-md transition-all border ${
+                              selectedAction ? 'bg-neutral-900 text-white border-neutral-900 shadow-md' : 'bg-white text-neutral-800 border-neutral-200 shadow-[0_2px_8px_rgba(0,0,0,0.04)] focus-within:border-neutral-300 focus-within:shadow-[0_4px_12px_rgba(0,0,0,0.06)]'
                             }`}>
                               <input
                                 autoFocus
@@ -513,7 +513,7 @@ function MainView({ logs, setLogs, rules }: { logs: LogEntry[], setLogs: React.D
                                 value={customAction}
                                 onChange={(e) => setCustomAction(e.target.value)}
                                 placeholder="Type custom action..."
-                                className={`bg-transparent outline-none w-full ${selectedAction ? 'text-white placeholder:text-blue-200' : 'text-neutral-800 placeholder:text-neutral-500'}`}
+                                className={`bg-transparent outline-none w-full text-sm ${selectedAction ? 'text-white placeholder:text-neutral-400' : 'text-neutral-900 placeholder:text-neutral-400'}`}
                                 disabled={appState === 'executing' || appState === 'result'}
                                 onKeyDown={(e) => {
                                   if (e.key === 'Enter' && customAction.trim()) {
@@ -525,7 +525,7 @@ function MainView({ logs, setLogs, rules }: { logs: LogEntry[], setLogs: React.D
                                 <button 
                                   onClick={() => handleActionSelect(customAction, true)} 
                                   disabled={!customAction.trim()}
-                                  className="p-1.5 bg-blue-500 text-white rounded-full hover:bg-blue-600 disabled:opacity-50"
+                                  className="p-1.5 bg-neutral-900 text-white rounded-full hover:bg-black disabled:opacity-50 transition-colors"
                                 >
                                   <ArrowUp className="w-4 h-4" />
                                 </button>
@@ -534,7 +534,7 @@ function MainView({ logs, setLogs, rules }: { logs: LogEntry[], setLogs: React.D
                           ) : (
                             <button 
                               onClick={() => setShowCustomInput(true)}
-                              className="w-[44px] h-[44px] rounded-full bg-blue-500 text-white flex items-center justify-center hover:bg-blue-600 transition-colors"
+                              className="w-[44px] h-[44px] rounded-full bg-white text-neutral-500 border border-neutral-200 border-dashed flex items-center justify-center hover:text-neutral-900 hover:border-neutral-300 transition-all shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]"
                             >
                               <Plus className="w-6 h-6" />
                             </button>
@@ -579,16 +579,16 @@ function MainView({ logs, setLogs, rules }: { logs: LogEntry[], setLogs: React.D
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 20 }}
-                  className="fixed bottom-4 left-4 right-4 md:bottom-auto md:left-auto md:top-24 md:right-8 z-50 bg-white/90 md:bg-transparent backdrop-blur-md md:backdrop-blur-none p-4 md:p-0 rounded-2xl md:rounded-none shadow-2xl md:shadow-none border border-neutral-200 md:border-none"
+                  className="fixed bottom-4 left-4 right-4 md:bottom-auto md:left-auto md:top-24 md:right-8 z-50 bg-white/90 md:bg-white/90 backdrop-blur-md p-4 md:p-6 rounded-2xl shadow-2xl md:shadow-[0_8px_40px_rgba(0,0,0,0.08)] border border-neutral-200"
                 >
-                  <div className="w-full md:w-72 opacity-100 md:opacity-70 hover:opacity-100 focus-within:opacity-100 transition-opacity">
-                    <div className="mb-4 text-left md:text-right">
-                      <h3 className="font-medium text-neutral-800">
+                  <div className="w-full md:w-72 opacity-100 md:opacity-50 hover:opacity-100 focus-within:opacity-100 transition-opacity">
+                    <div className="mb-4">
+                      <h3 className="font-medium text-neutral-800 text-sm">
                         Appending positive scoring to:
                       </h3>
                     </div>
                     
-                    <div className="flex flex-row md:flex-col flex-wrap items-start md:items-end gap-2 mb-6">
+                    <div className="flex flex-row flex-wrap items-start gap-2 mb-6">
                       {currentClassification && (
                         <>
                           <div className="group flex items-center gap-1">
@@ -603,7 +603,7 @@ function MainView({ logs, setLogs, rules }: { logs: LogEntry[], setLogs: React.D
                               className={`px-2 py-1.5 rounded-lg text-sm transition-all border ${
                                 excludedTags.includes(currentClassification.category) 
                                   ? 'bg-neutral-100 text-neutral-400 border-neutral-200 line-through' 
-                                  : 'bg-blue-50 text-blue-700 border-blue-100 hover:bg-blue-100'
+                                  : 'bg-neutral-100 text-neutral-800 border-neutral-200 hover:bg-neutral-200'
                               }`}
                             >
                               {currentClassification.category}
@@ -670,7 +670,7 @@ function MainView({ logs, setLogs, rules }: { logs: LogEntry[], setLogs: React.D
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 w-full max-w-[320px] md:w-80 h-full bg-white border-l border-neutral-200 z-30 flex flex-col shadow-2xl md:shadow-none"
+              className="fixed top-0 right-0 w-full max-w-[320px] md:w-80 h-full bg-white border-l border-neutral-200 z-30 flex flex-col shadow-2xl md:shadow-[-8px_0_30px_rgba(0,0,0,0.03)]"
             >
             <div className="p-4 border-b border-neutral-100 flex justify-between items-center bg-neutral-50/50">
               <div className="flex items-center gap-2">
@@ -687,7 +687,10 @@ function MainView({ logs, setLogs, rules }: { logs: LogEntry[], setLogs: React.D
             
             <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-4">
               {logs.length === 0 ? (
-                <div className="text-center text-neutral-400 py-10 text-sm">
+                <div className="text-center text-neutral-400 py-12 text-sm flex flex-col items-center gap-3">
+                  <div className="w-12 h-12 rounded-full bg-neutral-100 flex items-center justify-center mb-2">
+                    <History className="w-5 h-5 text-neutral-400" />
+                  </div>
                   No interactions logged yet.
                 </div>
               ) : (
@@ -745,9 +748,9 @@ function MiniRecordModal({ isOpen, onClose, title, logs }: { isOpen: boolean, on
               <div key={log.id} className="p-4 border border-neutral-100 rounded-xl bg-white">
                 <div className="text-sm text-neutral-600 mb-3 line-clamp-2 bg-neutral-50 p-2 rounded-lg">{log.input.text || "[Image Input]"}</div>
                 <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="px-2 py-0.5 bg-blue-50 text-blue-700 rounded text-xs border border-blue-100 font-medium">{log.classification.category}</span>
+                  <span className="px-2 py-0.5 bg-neutral-900 text-white rounded-[6px] text-[10px] uppercase tracking-wide font-medium shadow-sm">{log.classification.category}</span>
                   {log.classification.entities.map((e, i) => (
-                    <span key={i} className="px-2 py-0.5 bg-neutral-100 text-neutral-700 rounded text-xs border border-neutral-200">{e}</span>
+                    <span key={i} className="px-2 py-0.5 bg-white text-neutral-700 rounded-[6px] text-[10px] uppercase tracking-wide border border-neutral-200 font-medium shadow-[0_1px_2px_rgba(0,0,0,0.02)]">{e}</span>
                   ))}
                 </div>
                 <div className="space-y-2">
@@ -817,13 +820,13 @@ function TaxonomyLabel({
     setShowEdit(false);
   };
 
-  const baseClasses = `px-2.5 py-1 rounded-md text-xs border cursor-pointer transition-all relative inline-flex items-center gap-1 ${
+  const baseClasses = `px-2.5 py-1 rounded-[6px] text-[11px] uppercase tracking-wide font-medium border cursor-pointer transition-all relative inline-flex items-center gap-1 ${
     isExcluded 
       ? 'bg-neutral-100 text-neutral-400 border-neutral-200 line-through hover:bg-neutral-200' 
       : type === 'category' 
-        ? 'bg-blue-50 text-blue-700 border-blue-100 hover:bg-blue-100 font-medium' 
-        : 'bg-neutral-100 text-neutral-700 border-neutral-200 hover:bg-neutral-200'
-  } ${isEditMode ? 'ring-2 ring-blue-500/20 ring-offset-1' : ''}`;
+        ? 'bg-neutral-900 text-white border-neutral-900 hover:bg-black shadow-sm' 
+        : 'bg-white text-neutral-700 border-neutral-200 hover:border-neutral-300 shadow-[0_1px_2px_rgba(0,0,0,0.02)]'
+  } ${isEditMode ? 'ring-2 ring-neutral-500/20 ring-offset-1' : ''}`;
 
   return (
     <>
@@ -851,7 +854,7 @@ function TaxonomyLabel({
                 type="text"
                 value={editValue}
                 onChange={e => setEditValue(e.target.value)}
-                className="w-full text-sm pl-8 pr-2 py-1.5 border border-neutral-200 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="w-full text-sm pl-8 pr-2 py-1.5 border border-neutral-200 rounded-lg focus:outline-none focus:border-neutral-800 focus:ring-1 focus:ring-neutral-800"
                 placeholder={`Edit ${type}...`}
                 autoFocus
                 onKeyDown={e => {
@@ -865,7 +868,7 @@ function TaxonomyLabel({
                 {filteredOptions.map(opt => (
                   <div 
                     key={opt} 
-                    className="px-3 py-2 text-sm text-neutral-700 hover:bg-blue-50 hover:text-blue-700 cursor-pointer transition-colors"
+                    className="px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 cursor-pointer transition-colors"
                     onClick={() => handleSave(opt)}
                   >
                     {opt}
@@ -937,8 +940,8 @@ function TraceLogPage({ logs, setLogs }: { logs: LogEntry[], setLogs: React.Disp
               onClick={() => setIsEditMode(!isEditMode)}
               className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors flex items-center gap-2 ${
                 isEditMode 
-                  ? 'bg-blue-100 text-blue-700 hover:bg-blue-200' 
-                  : 'bg-white border border-neutral-200 text-neutral-700 hover:bg-neutral-50'
+                  ? 'bg-neutral-200 text-neutral-900 border border-neutral-300' 
+                  : 'bg-white border border-neutral-200 text-neutral-700 hover:bg-neutral-50 shadow-[0_1px_2px_rgba(0,0,0,0.02)]'
               }`}
             >
               <Edit2 className="w-4 h-4" />
@@ -955,8 +958,14 @@ function TraceLogPage({ logs, setLogs }: { logs: LogEntry[], setLogs: React.Disp
         
         <div className="bg-white rounded-3xl border border-neutral-200 overflow-hidden">
           {logs.length === 0 ? (
-            <div className="p-12 text-center text-neutral-500">
-              No logs available yet. Interact with the AI to generate trace data.
+            <div className="py-24 flex flex-col items-center justify-center text-center px-4">
+              <div className="w-16 h-16 rounded-full bg-neutral-100 flex items-center justify-center mb-4">
+                <History className="w-8 h-8 text-neutral-400" />
+              </div>
+              <h3 className="text-lg font-medium text-neutral-900 mb-2">No Trace Logs</h3>
+              <p className="text-sm text-neutral-500 max-w-sm">
+                Interact with the AI on the main page to generate trace data. Your actions and scoring will appear here.
+              </p>
             </div>
           ) : (
             <div className="divide-y divide-neutral-100">
@@ -1172,7 +1181,7 @@ function TaxonomyPage({ logs, setLogs, rules, setRules }: { logs: LogEntry[], se
               onClick={() => setIsEditMode(!isEditMode)}
               className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors flex items-center justify-center w-full md:w-auto gap-2 ${
                 isEditMode 
-                  ? 'bg-blue-100 text-blue-700 hover:bg-blue-200' 
+                  ? 'bg-neutral-200 text-neutral-900 border border-neutral-300' 
                   : 'bg-white border border-neutral-200 text-neutral-700 hover:bg-neutral-50'
               }`}
             >
@@ -1185,7 +1194,7 @@ function TaxonomyPage({ logs, setLogs, rules, setRules }: { logs: LogEntry[], se
         {/* Rules Section */}
         <div className="bg-white rounded-3xl border border-neutral-200 overflow-hidden p-4 md:p-8 mb-8">
           <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-purple-500" />
+            <Sparkles className="w-5 h-5 text-neutral-800" />
             Rules
           </h2>
           <p className="text-sm text-neutral-500 mb-6">
@@ -1205,7 +1214,7 @@ function TaxonomyPage({ logs, setLogs, rules, setRules }: { logs: LogEntry[], se
                   value={newTerm}
                   onChange={e => setNewTerm(e.target.value)}
                   placeholder="e.g., Design, React, Billing"
-                  className="w-full px-3 py-2 rounded-lg border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                  className="w-full px-3 py-2 rounded-lg border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-neutral-800 text-sm"
                 />
               </div>
               <div>
@@ -1213,7 +1222,7 @@ function TaxonomyPage({ logs, setLogs, rules, setRules }: { logs: LogEntry[], se
                 <select 
                   value={newTaxonomy}
                   onChange={e => setNewTaxonomy(e.target.value as 'category' | 'entity')}
-                  className="w-full px-3 py-2 rounded-lg border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white"
+                  className="w-full px-3 py-2 rounded-lg border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-neutral-800 text-sm bg-white"
                 >
                   <option value="category">Category</option>
                   <option value="entity">Entity</option>
@@ -1227,7 +1236,7 @@ function TaxonomyPage({ logs, setLogs, rules, setRules }: { logs: LogEntry[], se
                   type="checkbox" 
                   checked={newIsExact}
                   onChange={e => setNewIsExact(e.target.checked)}
-                  className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                  className="w-4 h-4 text-neutral-900 rounded border-gray-300 focus:ring-neutral-900"
                 />
                 <span className="text-sm font-medium text-neutral-700">Exact Match</span>
               </label>
@@ -1261,7 +1270,7 @@ function TaxonomyPage({ logs, setLogs, rules, setRules }: { logs: LogEntry[], se
                         setNewSuggestions(newSugs);
                       }}
                       placeholder="Enter suggestion..."
-                      className="flex-1 px-3 py-2 rounded-lg border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                      className="flex-1 px-3 py-2 rounded-lg border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-neutral-800 text-sm"
                     />
                     <div className="flex flex-col gap-0.5">
                       <button
@@ -1307,7 +1316,7 @@ function TaxonomyPage({ logs, setLogs, rules, setRules }: { logs: LogEntry[], se
                 ))}
                 <button 
                   onClick={() => setNewSuggestions([...newSuggestions, ''])}
-                  className="text-xs font-medium text-blue-600 hover:text-blue-700 flex items-center gap-1 mt-2 ml-6"
+                  className="text-xs font-medium text-neutral-600 hover:text-neutral-900 flex items-center gap-1 mt-2 ml-6"
                 >
                   <Plus className="w-3 h-3" /> Add another suggestion
                 </button>
@@ -1340,14 +1349,14 @@ function TaxonomyPage({ logs, setLogs, rules, setRules }: { logs: LogEntry[], se
               <h3 className="text-sm font-semibold mb-4 text-neutral-700">Active Rules</h3>
               <div className="space-y-3">
                 {rules.map(rule => (
-                  <div key={rule.id} className={`flex items-start justify-between p-4 bg-white border rounded-xl transition-colors ${editingRuleId === rule.id ? 'border-blue-500 ring-1 ring-blue-500' : 'border-neutral-200'}`}>
+                  <div key={rule.id} className={`flex items-start justify-between p-4 bg-white border rounded-xl transition-colors ${editingRuleId === rule.id ? 'border-neutral-900 ring-1 ring-neutral-900' : 'border-neutral-200'}`}>
                     <div>
                       <div className="flex items-center gap-2 mb-1">
                         <span className="font-semibold text-neutral-900">{rule.term}</span>
                         <span className="text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded bg-neutral-100 text-neutral-500">
                           {rule.taxonomy}
                         </span>
-                        <span className={`text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded ${rule.isExactMatch ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700'}`}>
+                        <span className={`text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded ${rule.isExactMatch ? 'bg-neutral-800 text-white' : 'bg-neutral-200 text-neutral-800'}`}>
                           {rule.isExactMatch ? 'Exact Match' : `>= ${rule.threshold}% Match`}
                         </span>
                       </div>
@@ -1360,7 +1369,7 @@ function TaxonomyPage({ logs, setLogs, rules, setRules }: { logs: LogEntry[], se
                     <div className="flex items-center gap-1">
                       <button 
                         onClick={() => handleEditRule(rule)}
-                        className="p-2 text-neutral-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                        className="p-2 text-neutral-400 hover:text-neutral-900 hover:bg-neutral-100 rounded-lg transition-colors"
                         title="Edit Rule"
                       >
                         <Edit2 className="w-4 h-4" />
@@ -1384,8 +1393,14 @@ function TaxonomyPage({ logs, setLogs, rules, setRules }: { logs: LogEntry[], se
         <div className="bg-white rounded-3xl border border-neutral-200 overflow-hidden p-4 md:p-6 mb-8">
           <h2 className="text-xl font-semibold mb-6">Your Taxonomy Data</h2>
           {Object.keys(categories).length === 0 && Object.keys(entities).length === 0 ? (
-            <div className="p-12 text-center text-neutral-500">
-              No taxonomy data available yet. Interact with the AI to generate data.
+            <div className="py-24 flex flex-col items-center justify-center text-center px-4">
+              <div className="w-16 h-16 rounded-full bg-neutral-100 flex items-center justify-center mb-4">
+                <Sparkles className="w-8 h-8 text-neutral-400" />
+              </div>
+              <h3 className="text-lg font-medium text-neutral-900 mb-2">No Taxonomy Data</h3>
+              <p className="text-sm text-neutral-500 max-w-sm">
+                As you interact with the AI, it will automatically classify your inputs into Categories and Entities.
+              </p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -1397,7 +1412,7 @@ function TaxonomyPage({ logs, setLogs, rules, setRules }: { logs: LogEntry[], se
                     <div key={category} className="bg-neutral-50 p-4 rounded-xl border border-neutral-100">
                       <div className="flex justify-between items-center mb-3">
                         <div className="flex items-center gap-2">
-                          <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                          <div className="w-2 h-2 rounded-full bg-neutral-900"></div>
                           {catLogs[0] && (
                             <TaxonomyLabel 
                               type="category"
@@ -1440,7 +1455,7 @@ function TaxonomyPage({ logs, setLogs, rules, setRules }: { logs: LogEntry[], se
                     <div key={entity} className="bg-neutral-50 p-4 rounded-xl border border-neutral-100">
                       <div className="flex justify-between items-center mb-3">
                         <div className="flex items-center gap-2">
-                          <div className="w-2 h-2 rounded-full bg-purple-500"></div>
+                          <div className="w-2 h-2 rounded-full bg-neutral-400"></div>
                           {entLogs[0] && (
                             <TaxonomyLabel 
                               type="entity"
@@ -1481,7 +1496,7 @@ function TaxonomyPage({ logs, setLogs, rules, setRules }: { logs: LogEntry[], se
         {/* System Explanation Section */}
         <div className="bg-white rounded-3xl border border-neutral-200 overflow-hidden p-4 md:p-8">
           <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-blue-500" />
+            <Sparkles className="w-5 h-5 text-neutral-800" />
             How Our System Works
           </h2>
           <div className="prose prose-neutral max-w-none text-sm space-y-4">
